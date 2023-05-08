@@ -1,5 +1,5 @@
 import { createReducer, createSelector, on } from "@ngrx/store";
-import { addUser, getUser } from "./user.actions";
+import { addUser, getUser, removeUser, updateUser } from "./user.actions";
 
 export interface State {
     users: User[];
@@ -23,6 +23,11 @@ export const userReducer = createReducer(
     initialState,
     on(getUser, (state, {users})=> [...users]),
     on(addUser, (state, {user})=> [...state, user]),
+    on(removeUser, (state, {user})=> state.filter((suser) => suser.id !== user.id)),
+    // on(updateUser, (state, {user})=> {
+    //     const _index = state.findIndex(suser => suser.id === user.id);
+    //     state = [...state.splice(1, _index, user)];
+    // }),
 
 )
 

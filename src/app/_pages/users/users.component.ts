@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State, User } from '@app/_state/users/users.reducer';
-import { addUser } from '@app/_state/users/user.actions';
+import { addUser, removeUser } from '@app/_state/users/user.actions';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -51,6 +51,11 @@ export class UsersComponent {
     user.id = _id;
 
     this.store.dispatch(addUser(user))
+    this.userForm.reset();
+  }
+
+  deleteUser(user: User) {
+    this.store.dispatch(removeUser(user));
   }
 
 }

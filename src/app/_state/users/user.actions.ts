@@ -8,3 +8,11 @@ export const getUser = createAction('[User] Get User', (users: User[])=> ({
 export const addUser = createAction('[User] Add User', (user: User)=> ({
     user,
 }))
+
+export const updateUser = createAction('[User] Update User', (user: User)=> ({
+    user,
+}))
+
+export const removeUser = createAction('[User] Remove User', (user: User)=> ({
+    user,
+}))
