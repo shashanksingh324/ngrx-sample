@@ -42,6 +42,10 @@ export class UsersComponent {
   }
 
   addUser() {
+    if(this.userForm.invalid) {
+      this.userForm.markAllAsTouched();
+      return;
+    }
     const _id = Math.ceil(Math.random() * 10000)
     let user = this.userForm.value;
     user.id = _id;

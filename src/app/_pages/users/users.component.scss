@@ -23,6 +23,13 @@ thead {
   background: #dddcdc;
 }
 
+.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+.p-10 {
+  padding: 10px;
+}
+
 
 .table-elipse {
   cursor: pointer;
