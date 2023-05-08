@@ -55,6 +55,7 @@ export class UsersComponent {
     let user = this.userForm.value;
     if (this.isEdit) {
       this.store.dispatch(updateUser(user))
+      this.isEdit = false;
     } else {
       const _id = Math.ceil(Math.random() * 10000)
       user.id = _id;
