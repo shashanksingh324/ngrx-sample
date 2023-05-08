@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State, User } from '@app/_state/users/users.reducer';
-import { addUser, removeUser } from '@app/_state/users/user.actions';
+import { addUser, removeUser, updateUser } from '@app/_state/users/user.actions';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -16,6 +16,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class UsersComponent {
   userForm: FormGroup;
   users$: Observable<User[]>;
+  isEdit = false;
 
   items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
   expandedIndex = 0;
@@ -41,16 +42,24 @@ export class UsersComponent {
     })
   }
 
+  editUser(user: User) {
+    this.isEdit = true;
+    this.userForm.patchValue(user);
+  }
+
   addUser() {
-    if(this.userForm.invalid) {
+    if (this.userForm.invalid) {
       this.userForm.markAllAsTouched();
       return;
     }
-    const _id = Math.ceil(Math.random() * 10000)
     let user = this.userForm.value;
-    user.id = _id;
-
-    this.store.dispatch(addUser(user))
+    if (this.isEdit) {
+      this.store.dispatch(updateUser(user))
+    } else {
+      const _id = Math.ceil(Math.random() * 10000)
+      user.id = _id;
+      this.store.dispatch(addUser(user))
+    }
     this.userForm.reset();
   }
 

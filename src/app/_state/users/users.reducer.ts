@@ -24,10 +24,11 @@ export const userReducer = createReducer(
     on(getUser, (state, {users})=> [...users]),
     on(addUser, (state, {user})=> [...state, user]),
     on(removeUser, (state, {user})=> state.filter((suser) => suser.id !== user.id)),
-    // on(updateUser, (state, {user})=> {
-    //     const _index = state.findIndex(suser => suser.id === user.id);
-    //     state = [...state.splice(1, _index, user)];
-    // }),
+    on(updateUser, (state, {user})=> {
+        state = state.filter((suser) => suser.id !== user.id);
+        state = [...state, user];
+        return state;
+    }),
 
 )
 
